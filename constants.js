@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const baseUrl = `https://api.github.com/repos/octocat/hello-world/pulls`;
+const baseUrl = `https://api.github.com/repos/`;
 const headers = {
     headers: {
         'Authorization': process.env.client_secret,
