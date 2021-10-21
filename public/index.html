@@ -7,16 +7,39 @@
     <title>GitHub REST API</title>
 </head>
 <body>
-    <form action="index.html" method="GET">
-        <input type="text" placeholder="Enter GitHub username" />
-        <input type="text" placeholder="Enter GitHub repository" />
+    <form id="github-form" method="POST" action="/pull-requests">
+        <input type="text" id="user" name="user" placeholder="Enter GitHub username" />
+        <input type="text" id="repo" name="repo" placeholder="Enter GitHub repository" />
         <input type="submit" id="submit" value="Retrieve Pull Request Data" />
     </form>
 </body>
 </html>
 
 <script type="text/javascript">
-    document.getElementById('submit').addEventListener('click', fetchPRData);
     
-    function fetchPRData()
+    
+    document.getElementById('submit').addEventListener('submit', sendFormData);
+
+    function sendFormData(event) {
+        event.preventDefault();
+        const user = document.querySelector('#user').value;
+        const repo = document.querySelector('#repo').value;
+
+        const params = {
+            user: user,
+            repo: repo
+        };
+
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(params),
+            'content-type': 'application/x-www-form-urlencoded'
+        };
+
+        fetch('http://localhost:8080/pull-requests', options )
+            .then( response => response.json() )
+            .then( response => {
+                console.log(response);
+            })
+    }
 </script>
