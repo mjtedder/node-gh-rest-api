@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub REST API</title>
+</head>
+<body>
+    <form id="github-form">
+        <input type="text" id="user" name="user" placeholder="Enter GitHub username" />
+        <input type="text" id="repo" name="repo" placeholder="Enter GitHub repository" />
+        <input type="submit" id="submit" value="Retrieve Pull Request Data" />
+    </form>
+</body>
+</html>
+
+<script type="text/javascript">
+    
+    document.getElementById('submit').addEventListener('click', sendFormData);
+
+    function sendFormData(event) {
+        event.preventDefault();
+
+        const user = document.querySelector('#user').value;
+        const repo = document.querySelector('#repo').value;
+
+        const data = {
+            user,
+            repo
+        };
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+
+        fetch('/api', options);
+
+        document.querySelector('#github-form').reset();
+    }
+</script>
