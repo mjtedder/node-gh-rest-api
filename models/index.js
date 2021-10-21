@@ -8,7 +8,7 @@ const { retrievePRNumbers } = require('../utils');
 
 const getOpenPRData = async () => {
     try {
-        const response = await axios.get(baseUrl, headers);
+        const response = await axios.get(`${baseUrl}${db.owner}/${db.repo}/pulls`, headers);
         const openPullRequests = response.data.filter(pr => pr.state);
         if (openPullRequests.length) {
             db.prNumbers = retrievePRNumbers(openPullRequests);
